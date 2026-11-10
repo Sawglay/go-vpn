@@ -53,3 +53,16 @@ If there is no handshake, check the endpoint, UDP firewall rules, and public key
 - Keep Ubuntu patched and restrict administrative access to the gateway.
 - WireGuard encrypts the device-to-gateway connection. HTTPS protects web content on its way to the destination. Websites can still identify users through their accounts and cookies. [EFF VPN privacy guide](https://ssd.eff.org/module/choosing-vpn-thats-right-you)
 
+## Roadmap
+
+- [ ] Set up one Ubuntu gateway and verify the Windows connection.
+- [ ] Add the iPhone and run the MVP verification checklist.
+- [ ] Build a Next.js admin dashboard to list, enroll, and revoke devices.
+- [ ] Add an authenticated FastAPI management service that stores public keys and device metadata and applies peer changes through a narrowly scoped gateway interface.
+- [ ] Evaluate a custom VPN client with device-level Connect and Disconnect controls.
+
+## References
+
+- [WireGuard Quick Start](https://www.wireguard.com/quickstart/)
+- [Official WireGuard clients](https://www.wireguard.com/install/)
+- [Ubuntu guide to using WireGuard as the default gateway](https://ubuntu.com/server/docs/how-to/wireguard-vpn/vpn-as-the-default-gateway/)
