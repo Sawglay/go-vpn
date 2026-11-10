@@ -22,3 +22,15 @@ A personal VPN for a Windows laptop and an iPhone, powered by WireGuard on an Ub
 | Management API (planned) | FastAPI | Authenticates the owner and applies authorized peer changes to the gateway. |
 
 The device connects directly to the gateway over WireGuard. The planned dashboard and API manage access. Browsing traffic flows through the gateway.
+
+## Set up the MVP
+
+**Prerequisites.** An Ubuntu VPS with a public IPv4 address, SSH access, and the ability to allow inbound UDP on the cloud firewall. Check the provider's monthly price and bandwidth allowance before provisioning.
+
+1. **Install WireGuard on Ubuntu.** Run `sudo apt update` and `sudo apt install wireguard`.
+2. **Set up the gateway.** Generate its key pair, choose an unused tunnel subnet such as `10.66.66.0/24`, and configure a WireGuard interface such as `wg0`. Allow the chosen UDP port, for example `51820/udp`, in the cloud and host firewalls. Enable IPv4 forwarding, allow the required forwarded traffic, and configure source NAT on the server's internet-facing interface. Follow the [Ubuntu default gateway guide](https://ubuntu.com/server/docs/how-to/wireguard-vpn/vpn-as-the-default-gateway/) for the routing setup.
+3. **Enroll the Windows laptop.** Create a tunnel in the official client. Register the laptop's public key and its individual tunnel address, for example `10.66.66.2/32`, on the server. Set the client's peer to the server's public key and public endpoint. Configure `0.0.0.0/0` as the server peer's IPv4 route on the client and use a DNS resolver reachable through the tunnel.
+4. **Start the gateway and connect.** For a saved `/etc/wireguard/wg0.conf` managed by systemd, run `sudo systemctl enable --now wg-quick@wg0`. Activate the Windows tunnel, generate traffic, and run `sudo wg show wg0` on the server to check for a recent handshake and transferred bytes.
+5. **Add the iPhone.** Repeat the enrollment with a fresh device key pair and a different tunnel address, such as `10.66.66.3/32`. Test the connection on cellular data.
+
+The IPv4 route in step 3 covers IPv4 only. Handle IPv6 separately on each client by routing it through a configured IPv6 tunnel or blocking direct IPv6 traffic while the VPN is active. Test the chosen behavior on both clients.
