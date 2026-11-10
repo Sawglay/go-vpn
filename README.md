@@ -34,3 +34,22 @@ The device connects directly to the gateway over WireGuard. The planned dashboar
 5. **Add the iPhone.** Repeat the enrollment with a fresh device key pair and a different tunnel address, such as `10.66.66.3/32`. Test the connection on cellular data.
 
 The IPv4 route in step 3 covers IPv4 only. Handle IPv6 separately on each client by routing it through a configured IPv6 tunnel or blocking direct IPv6 traffic while the VPN is active. Test the chosen behavior on both clients.
+
+## MVP verification
+
+| Check | Expected result |
+| --- | --- |
+| Handshake and traffic | The server shows a recent handshake and increasing transfer counters after the client generates traffic. |
+| Public IPv4 | With the tunnel active, an IPv4 lookup reports the gateway's public IP and websites load. |
+| DNS and IPv6 | DNS follows the intended route. IPv6 uses the tunnel or is blocked while the VPN is active. |
+| Reconnection and tunnel loss | The iPhone reconnects after switching between Wi-Fi and cellular. With the gateway unreachable, actual traffic behavior matches the configured policy. |
+| Device revocation | Removing a peer from the live gateway and its saved configuration cuts off that device. A second enrolled device can still connect. |
+
+If there is no handshake, check the endpoint, UDP firewall rules, and public keys. If there is a handshake but websites fail to load, check IP forwarding, firewall forwarding rules, source NAT, and DNS.
+
+## Keys and privacy
+
+- Keep each private key on its own device or server. Share public keys for enrollment. Keep real configurations containing private keys and exported setup QR codes out of Git and screenshots.
+- Keep Ubuntu patched and restrict administrative access to the gateway.
+- WireGuard encrypts the device-to-gateway connection. HTTPS protects web content on its way to the destination. Websites can still identify users through their accounts and cookies. [EFF VPN privacy guide](https://ssd.eff.org/module/choosing-vpn-thats-right-you)
+
