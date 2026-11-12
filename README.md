@@ -24,7 +24,26 @@ A personal VPN for a Windows laptop and an iPhone, powered by WireGuard on an Ub
 The device connects directly to the gateway over WireGuard. The planned dashboard and API manage access. Browsing traffic flows through the gateway.
 
 ## Project Stucture
-
+self-hosted-wireguard-vpn/
+├── README.md
+├── .gitignore
+├── server/
+│   ├── config/
+│   │   └── wg0.conf.example
+│   └── scripts/
+│       └── README.md
+├── clients/
+│   ├── windows/
+│   │   └── client.conf.example
+│   └── ios/
+│       └── client.conf.example
+├── dashboard/
+│   ├── frontend/
+│   │   └── README.md
+│   └── backend/
+│       └── README.md
+└── docs/
+    └── mvp-test-checklist.md
 
 ## Set up the MVP
 
