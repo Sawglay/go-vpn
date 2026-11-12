@@ -23,6 +23,9 @@ A personal VPN for a Windows laptop and an iPhone, powered by WireGuard on an Ub
 
 The device connects directly to the gateway over WireGuard. The planned dashboard and API manage access. Browsing traffic flows through the gateway.
 
+## Project Stucture
+
+
 ## Set up the MVP
 
 **Prerequisites.** An Ubuntu VPS with a public IPv4 address, SSH access, and the ability to allow inbound UDP on the cloud firewall. Check the provider's monthly price and bandwidth allowance before provisioning.
